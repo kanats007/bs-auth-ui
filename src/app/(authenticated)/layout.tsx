@@ -7,9 +7,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const res = await auth();
-  // console.log(res);
-  // const data = await res.json();
-  // console.log(data);
+  // NOTICE:サーバーコンポーネントではレンダリング時に実行されるため、useRouterなどで画面遷移した場合は起動しない
   console.log("execute on server");
   if (res.status !== 200) redirect("/login");
   return <>{children}</>;
