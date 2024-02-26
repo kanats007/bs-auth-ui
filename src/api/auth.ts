@@ -2,40 +2,63 @@ import axios from "@/lib/axios";
 
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
-export const register = async (props: any) => {
+export const getUser = async () => {
+  try {
+    return await axios.get("/api/user");
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
+};
+
+export const registerUser = async (props: any) => {
   await csrf();
 
-  await axios
-    .post("/register", props)
-    .then((response) => console.log(response))
-    .catch((error) => {
-      console.log(error);
-      if (error.response.status !== 422) throw error;
-    });
+  try {
+    return await axios.post("/register", props);
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
 };
 
 export const login = async (props: any) => {
   await csrf();
-  console.log("login");
-  axios
-    .post("/login", props)
-    .then((res) => {
-      console.log(res);
-      console.log("success");
-      return res.status === 204;
-    })
-    .catch((error) => {
-      throw error;
-    });
+  try {
+    return await axios.post("/login", props);
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
 };
 
 export const logout = async () => {
-  axios
-    .post("/logout")
-    .then((res) => {
-      return res;
-    })
-    .catch((error) => {
-      throw error;
-    });
+  try {
+    return await axios.post("/logout");
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
+};
+
+export const forgotPassword = async (props: any) => {
+  await csrf();
+
+  try {
+    return await axios.post("/forgot-password", props);
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
+};
+
+export const resetPassword = async (props: any) => {
+  await csrf();
+
+  try {
+    return await axios.post("/reset-password", props);
+  } catch (error: any) {
+    console.log(error);
+    return error.response;
+  }
 };

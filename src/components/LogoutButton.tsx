@@ -9,7 +9,6 @@ export const LogoutButton = (props: Props) => {
   const router = useRouter();
   const signout = async () => {
     const res = await logout();
-    console.log(res);
     router.push("/login");
   };
   return <button onClick={signout}>Log out</button>;

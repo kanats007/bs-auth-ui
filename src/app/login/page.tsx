@@ -16,8 +16,7 @@ export default function SignIn() {
       email,
       password,
     });
-    router.refresh();
-    router.push("/");
+    if (res.status === 204) router.push("/");
   };
   return (
     <div>
@@ -55,7 +54,12 @@ export default function SignIn() {
         <button className="ml-3">login</button>
       </form>
 
-      <Link href="/register">register</Link>
+      <div>
+        <Link href="/register">register</Link>
+      </div>
+      <div>
+        <Link href="/forgot-password">forgot password?</Link>
+      </div>
     </div>
   );
 }
