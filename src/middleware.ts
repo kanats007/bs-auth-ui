@@ -19,11 +19,13 @@ export async function middleware(request: NextRequest) {
     console.log(request.nextUrl.pathname);
     if (!res.ok && request.nextUrl.pathname !== "/login") {
       console.log("未認証");
+      // TODO: リダイレクトした時ミドルウェアを無効にしたい
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
     if (res.ok && request.nextUrl.pathname == "/login") {
       console.log("認証済");
+      // TODO: リダイレクトした時ミドルウェアを無効にしたい
       return NextResponse.redirect(new URL("/", request.url));
     }
 
