@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     //       console.log("ログイン済み");
     //       return NextResponse.redirect(new URL("/", request.url));
     //     }
-    console.log(request.nextUrl.pathname);
+    // console.log(request.nextUrl.pathname);
 
     return NextResponse.next();
   } catch (error) {
