@@ -4,22 +4,28 @@ import type { NextRequest } from "next/server";
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   try {
-    //     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`, {
-    //       headers: {
-    //         Cookie: request.headers.get("cookie") ?? "",
-    //         "X-Xsrf-Token": request.cookies.get("XSRF-TOKEN")?.value ?? "",
-    //         referer: request.headers.get("referer") ?? "",
-    //         // さらに、必ずリクエストへAccept: application/jsonヘッダを付け、送信してください。
-    //         Accept: "application/json",
-    //       },
-    //       credentials: "include",
-    //     });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`, {
+      headers: {
+        Cookie: request.headers.get("cookie") ?? "",
+        "X-Xsrf-Token": request.cookies.get("XSRF-TOKEN")?.value ?? "",
+        // referer: request.headers.get("referer") ?? "",
+        referer: process.env.NEXT_PUBLIC_FRONTEND_URL ?? "",
+        // さらに、必ずリクエストへAccept: application/jsonヘッダを付け、送信してください。
+        Accept: "application/json",
+      },
+      credentials: "include",
+    });
 
-    //     if (res.ok) {
-    //       console.log("ログイン済み");
-    //       return NextResponse.redirect(new URL("/", request.url));
-    //     }
-    // console.log(request.nextUrl.pathname);
+    console.log(request.nextUrl.pathname);
+    if (!res.ok && request.nextUrl.pathname !== "/login") {
+      console.log("未認証");
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    if (res.ok && request.nextUrl.pathname == "/login") {
+      console.log("認証済");
+      return NextResponse.redirect(new URL("/", request.url));
+    }
 
     return NextResponse.next();
   } catch (error) {
