@@ -7,7 +7,6 @@ export const AuthLayout = async ({
 }>) => {
   const res = await auth();
   // NOTICE:サーバーコンポーネントではレンダリング時に実行されるため、useRouterなどで画面遷移した場合は起動しない
-  console.log("AuthLayout");
   if (res.status !== 200) redirect("/login");
   return <>{children}</>;
 };
