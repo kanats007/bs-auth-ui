@@ -16,7 +16,6 @@ export default function SignIn() {
       email,
       password,
     });
-    router.refresh();
     router.push("/");
   };
   return (
