@@ -8,9 +8,7 @@ export async function middleware(request: NextRequest) {
       headers: {
         Cookie: request.headers.get("cookie") ?? "",
         "X-Xsrf-Token": request.cookies.get("XSRF-TOKEN")?.value ?? "",
-        // referer: request.headers.get("referer") ?? "",
         referer: process.env.NEXT_PUBLIC_FRONTEND_URL ?? "",
-        // さらに、必ずリクエストへAccept: application/jsonヘッダを付け、送信してください。
         Accept: "application/json",
       },
       credentials: "include",
@@ -36,8 +34,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  //   matcher: ["/login", "/register"],
-  //   matcher: ["/"],
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
